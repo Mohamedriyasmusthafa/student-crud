@@ -1,0 +1,108 @@
++1<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS MySQL CRUD</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+</head>
+<body ng-controller="StudentController">
+
+<div class="container">
+    <h1>Student Management CRUD</h1>
+
+    <!-- Add / Update Form -->
+    <form ng-submit="submitStudent()" class="student-form">
+        <input type="number" ng-model="student.roll_no" placeholder="Roll No" required>
+        <input type="text" ng-model="student.student_name" placeholder="Name" required>
+        <input type="text" ng-model="student.section" placeholder="Section">
+        <input type="number" ng-model="student.overall_marks" placeholder="Marks">
+        <button type="submit" class="btn btn-add">
+            {{student.id ? 'Update' : 'Add'}}
+        </button>
+    </form>
+
+    <hr>
+
+    <!-- Students Table -->
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Marks</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in students">
+                <td>{{s.id}}</td>
+                <td>{{s.roll_no}}</td>
+                <td>{{s.student_name}}</td>
+                <td>{{s.section}}</td>
+                <td>{{s.overall_marks}}</td>
+                <td>
+                    <button class="btn btn-edit" ng-click="editStudent(s)">Edit</button>
+                    <button class="btn btn-delete" ng-click="deleteStudent(s.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- AngularJS App -->
+<script>
+var app = angular.module('studentApp', []);
+
+app.controller('StudentController', function($scope, $http) {
+    $scope.students = [];
+    $scope.student = {};
+
+    // Load students from backend
+    function loadStudents() {
+        $http.get('http://localhost:3000/students')
+        .then(function(response) {
+            $scope.students = response.data;
+        });
+    }
+
+    loadStudents();
+
+    // Add or Update
+    $scope.submitStudent = function() {
+        if ($scope.student.id) {
+            // Update
+            $http.put('http://localhost:3000/students/' + $scope.student.id, $scope.student)
+            .then(function() {
+                loadStudents();
+                $scope.student = {};
+            });
+        } else {
+            // Add
+            $http.post('http://localhost:3000/students', $scope.student)
+            .then(function() {
+                loadStudents();
+                $scope.student = {};
+            });
+        }
+    };
+
+    // Edit
+    $scope.editStudent = function(s) {
+        $scope.student = angular.copy(s);
+    };
+
+    // Delete
+    $scope.deleteStudent = function(id) {
+        $http.delete('http://localhost:3000/students/' + id)
+        .then(function() {
+            loadStudents();
+        });
+    };
+});
+</script>
+
+</body>
+</html>
