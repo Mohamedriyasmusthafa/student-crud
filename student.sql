@@ -1,4 +1,6 @@
--- Create table
+CREATE DATABASE school;
+
+USE students_db;
 CREATE TABLE students (
     id INT PRIMARY KEY,
     roll_no INT NOT NULL,
@@ -7,7 +9,7 @@ CREATE TABLE students (
     overall_marks INT
 );
 
--- Insert records
+
 INSERT INTO students (id, roll_no, student_name, section, overall_marks) VALUES
 (1, 1, 'Mohamed Riyas', 'A', 88),
 (2, 2, 'Ayesha Khan', 'B', 92),
