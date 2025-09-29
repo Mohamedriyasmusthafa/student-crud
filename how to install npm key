@@ -3,6 +3,8 @@
 npm init -y
 // mysql2 is a Node.js client for MySQL database.
 npm install mysql2
+npm install cors body-parser mysql2 express
+
 //For Install node modules
 npm install express
  // For run the node.js code
