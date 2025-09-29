@@ -1,0 +1,11 @@
+// This keys should run in your Command prompt
+// This creates a package.json file.
+npm init -y
+// mysql2 is a Node.js client for MySQL database.
+npm install mysql2
+//For Install node modules
+npm install express
+ // For run the node.js code
+// example: node filename.js
+//This one is for run this server.js
+node server.js
