@@ -1,10 +1,9 @@
--- Create database
 CREATE DATABASE IF NOT EXISTS school;
 
--- Select the database
+
 USE school;
 
--- Create students table
+
 CREATE TABLE IF NOT EXISTS students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     roll_no INT NOT NULL,
@@ -13,7 +12,7 @@ CREATE TABLE IF NOT EXISTS students (
     overall_marks INT
 );
 
--- Insert sample records
+
 INSERT INTO students (roll_no, student_name, section, overall_marks) VALUES
 (1, 'Mohamed Riyas', 'A', 88),
 (2, 'Ayesha Khan', 'B', 92),
